@@ -1,0 +1,10 @@
+# Virtual muhit
+.idea/
+
+# Python cache fayllari
+__pycache__/
+*.pyc
+
+# Log fayllari
+*.log
+instance
