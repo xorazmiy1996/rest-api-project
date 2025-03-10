@@ -8,3 +8,7 @@ __pycache__/
 # Log fayllari
 *.log
 instance
+# env vayllari
+.env
+# eniviorment vayllari
+.venv
