@@ -44,7 +44,6 @@ class UserRegister(MethodView):
                                 body=f"Hi {user.username}, You have successfully signed up to the Stores REST API")
         except SQLAlchemyError as e:
             abort(500, message=str(e))
-
         return {"message": "User created", "id": user.id}
 
 
