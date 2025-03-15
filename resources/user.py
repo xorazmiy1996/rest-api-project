@@ -1,5 +1,5 @@
 import json
-
+from flask import current_app
 from db import db
 from flask_smorest import Blueprint, abort
 from flask.views import MethodView
@@ -12,8 +12,7 @@ from sqlalchemy import or_
 
 from models import UserModel
 from schemas import UserSchema, UserRegisterSchema
-
-from service.mailjet import send_mail
+from tasks import send_email_user_registration
 
 import requests, os
 
@@ -40,8 +39,12 @@ class UserRegister(MethodView):
         try:
             db.session.add(user)
             db.session.commit()
-            send_mail(to=user.email, subject="Welcome to MyStore",
-                                body=f"Hi {user.username}, You have successfully signed up to the Stores REST API")
+            print('===>')
+            current_app.queue.enqueue(send_email_user_registration, user.email, user.username)
+
+
+
+           
         except SQLAlchemyError as e:
             abort(500, message=str(e))
         return {"message": "User created", "id": user.id}

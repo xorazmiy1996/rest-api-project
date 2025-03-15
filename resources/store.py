@@ -24,7 +24,7 @@ class Store(MethodView):
 
 @blue.route("/store")
 class StoreList(MethodView):
-    @blue.response(201, StoreSchema(many=True))
+    @blue.response(200, StoreSchema(many=True))
     def get(self):
         return StoreModel.query.all()
 
