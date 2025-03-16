@@ -1,4 +1,4 @@
-import json
+
 from flask import current_app
 from db import db
 from flask_smorest import Blueprint, abort
@@ -14,7 +14,6 @@ from models import UserModel
 from schemas import UserSchema, UserRegisterSchema
 from tasks import send_email_user_registration
 
-import requests, os
 
 blue = Blueprint('users', __name__, description="Operations on users")
 
