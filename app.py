@@ -75,13 +75,12 @@ def create_app(db_url=None):
 
     @jwt.invalid_token_loader
     def invalid_token_callback(error):
-        print("Error=>", error)
-        return (jsonify({"message": "Signature verification failed.", "error": "invalid_token"}))
+        return (jsonify({"message": "Signature verification failed.", "error": "invalid_token"}), 401)
 
     @jwt.unauthorized_loader
     def missing_token_callback(error):
         return (
-            jsonify({"description": "Request does not contain an access token.", "error": "authorization_required"}))
+            jsonify({"description": "Request does not contain an access token.", "error": "authorization_required"}),401)
 
     api = Api(app)
     with app.app_context():
