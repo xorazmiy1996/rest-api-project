@@ -29,7 +29,7 @@ class Item(MethodView):
         db.session.commit()
         return {"message":"Item deleted"}
 
-
+    @jwt_required()
     @blue.arguments(ItemUpdateSchema)
     @blue.response(201, ItemSchema)
     def put(self,item_data,item_id):
