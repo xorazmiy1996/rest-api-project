@@ -89,11 +89,13 @@ class UserLogout(MethodView):
 
 @blue.route('/user/<int:user_id>')
 class User(MethodView):
+    @jwt_required()
     @blue.response(200, UserSchema)
     def get(self, user_id):
         user = UserModel.query.get_or_404(user_id)
         return user
 
+    @jwt_required()
     def delete(self, user_id):
         user = UserModel.query.get_or_404(user_id)
         try:
@@ -105,6 +107,7 @@ class User(MethodView):
 
 @blue.route('/user')
 class UserList(MethodView):
+    @jwt_required()
     @blue.response(201, UserSchema(many=True))
     def get(self):
         return UserModel.query.all()
